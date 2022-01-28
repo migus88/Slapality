@@ -11,8 +11,8 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
     {
         private static readonly int HeadVectorAnimatorKey = Animator.StringToHash("HeadVector");
         private static readonly int AttackVectorAnimatorKey = Animator.StringToHash("AttackVector");
-        private static readonly int DamageTriggerAnimatorKey = Animator.StringToHash("AttackVector");
-        private static readonly int DeathTriggerAnimatorKey = Animator.StringToHash("AttackVector");
+        private static readonly int DamageTriggerAnimatorKey = Animator.StringToHash("DamageTrigger");
+        private static readonly int DeathTriggerAnimatorKey = Animator.StringToHash("DeathTrigger");
 
         [SerializeField] private Animator _animator;
 
