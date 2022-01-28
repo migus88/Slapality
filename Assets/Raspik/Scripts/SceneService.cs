@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class SceneService : MonoBehaviour
 {
     public GameObject OptionsPanel;
+    public GameObject CreditsPanel;
     public void StartGame()
     {
         SceneLoader("Intro");
@@ -28,7 +29,12 @@ public class SceneService : MonoBehaviour
 
     public void OpenCredits()
     {
-        SceneLoader("Credits");
+        Animator animator = CreditsPanel.GetComponent<Animator>();
+        if (animator != null)
+        {
+            bool isOpen = animator.GetBool("Open");
+            animator.SetBool("Open",!isOpen);
+        }
     }
     
     public void Quit()
