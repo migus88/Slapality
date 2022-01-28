@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneService : MonoBehaviour
 {
+    public GameObject OptionsPanel;
     public void StartGame()
     {
         SceneLoader("Intro");
@@ -12,7 +13,12 @@ public class SceneService : MonoBehaviour
 
     public void OpenOptions()
     {
-        SceneLoader("Options");
+        Animator animator = OptionsPanel.GetComponent<Animator>();
+        if (animator != null)
+        {
+            bool isOpen = animator.GetBool("Open");
+            animator.SetBool("Open",!isOpen);
+        }
     }
 
     public void BackToMain()
