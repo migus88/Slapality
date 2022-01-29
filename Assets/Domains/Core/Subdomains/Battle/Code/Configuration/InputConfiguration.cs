@@ -19,10 +19,35 @@ namespace Domains.Core.Subdomains.Battle.Code.Configuration
     [Serializable]
     public class PlayerInput
     {
+        [Header("X")]
         public KeyCode X;
+        public Sprite SpriteX;
+        
+        [Header("Y")]
         public KeyCode Y;
+        public Sprite SpriteY;
+        
+        [Header("A")]
         public KeyCode A;
+        public Sprite SpriteA;
+        
+        [Header("B")]
         public KeyCode B;
+        public Sprite SpriteB;
+        
+        [Header("Charge")]
         public KeyCode Charge;
+
+        public Sprite GetSprite(GameButtonType buttonType)
+        {
+            return buttonType switch
+            {
+                GameButtonType.X => SpriteX,
+                GameButtonType.Y => SpriteY,
+                GameButtonType.A => SpriteA,
+                GameButtonType.B => SpriteB,
+                _ => throw new IndexOutOfRangeException()
+            };
+        }
     }
 }

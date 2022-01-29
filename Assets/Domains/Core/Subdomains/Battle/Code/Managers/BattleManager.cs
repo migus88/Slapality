@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Domains.Core.Subdomains.Battle.Code.Configuration;
 using Domains.Core.Subdomains.Battle.Code.Enums;
 using Domains.Core.Subdomains.Battle.Code.Interfaces;
 using TMPro;
@@ -18,6 +19,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
         [Inject] private IBattleHandler _battleHandler;
         [Inject] private ICountdownView _countdownView;
         [Inject] private IGameState _gameState;
+        [Inject] private FightConfiguration _fightConfiguration;
 
         private void Start()
         {
@@ -48,7 +50,8 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
         private async UniTask PlayRound()
         {
             await _battleHandler.SwitchPlayers();
-            
+
+            _countdownView.Countdown(_fightConfiguration.MaxSecondsToCharge).Forget();
             var chargeResult = await _battleHandler.ChargeHit();
 
             if (chargeResult.buttonPressed == GameButtonType.None)
@@ -57,6 +60,8 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
                 return;
             }
 
+            _countdownView.ShowButton(_fightConfiguration.MaxSecondsToDodge, chargeResult.buttonPressed,
+                _gameState.CurrentEnemy.PlayerType);
             var dodgeResult = await _battleHandler.SelectDodgeButton();
             var damageResult =
                 await _battleHandler.CalculateDamage(chargeResult.charge, chargeResult.buttonPressed, dodgeResult);
