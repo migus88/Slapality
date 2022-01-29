@@ -1649,6 +1649,7 @@ MonoBehaviour:
   _workaholicView: {fileID: 441631147}
   _bumView: {fileID: 1466940995}
   _countdownView: {fileID: 1499708915}
+  _chargingMeterView: {fileID: 1263329599}
   _battleHandler: {fileID: 1968267247}
 --- !u!114 &1765511980
 MonoBehaviour:

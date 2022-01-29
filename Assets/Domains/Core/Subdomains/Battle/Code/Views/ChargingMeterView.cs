@@ -7,8 +7,14 @@ using Zenject;
 
 namespace Domains.Core.Subdomains.Battle.Code.Views
 {
-    public class ChargingMeterView : MonoBehaviour
+    public class ChargingMeterView : MonoBehaviour, IChargingMeterView
     {
+        public float ChargeValue
+        {
+            get => _value;
+            set => _value = value;
+        }
+        
         [SerializeField] private float _minVerticalPosition;
         [SerializeField] private float _maxVerticalPosition;
         [SerializeField] private RectTransform _backgroundTransform;
@@ -18,9 +24,6 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
 
         private void Update()
         {
-            // TODO: Get real value
-            //_value = charginMeter;
-            
             var newVerticalPosition = Mathf.Lerp(_minVerticalPosition, _maxVerticalPosition, _value);
             _backgroundTransform.anchoredPosition =
                 new Vector2(_backgroundTransform.anchoredPosition.x, newVerticalPosition);

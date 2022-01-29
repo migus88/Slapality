@@ -23,7 +23,7 @@ namespace Domains.Core.Subdomains.Battle.Code
         [SerializeField] private FighterView _workaholicView;
         [SerializeField] private FighterView _bumView;
         [SerializeField] private CountdownView _countdownView;
-        
+        [SerializeField] private ChargingMeterView _chargingMeterView;
 
         [Header("Handlers")]
         [SerializeField] private BattleHandler _battleHandler;
@@ -32,6 +32,8 @@ namespace Domains.Core.Subdomains.Battle.Code
 
         public override void InstallBindings()
         {
+            Container.Bind<IChargingMeterView>().To<ChargingMeterView>().FromInstance(_chargingMeterView);
+            
             Container.Bind<FightConfiguration>().FromInstance(_fightConfiguration).AsSingle();
             Container.Bind<InputConfiguration>().FromInstance(_inputConfiguration).AsSingle();
 
@@ -60,6 +62,7 @@ namespace Domains.Core.Subdomains.Battle.Code
             Container.Bind<IGameState>().To<GameState>().AsTransient();
 
             Container.Bind<IBattleHandler>().To<BattleHandler>().FromInstance(_battleHandler).AsTransient();
+            
         }
     }
 }

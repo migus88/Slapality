@@ -16,6 +16,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
         [Inject] private IGameState _gameState;
         [Inject] private FightConfiguration _fightConfiguration;
+        [Inject] private IChargingMeterView _chargingMeterView;
 
         private UniTaskCompletionSource<(float charge, GameButtonType hitDirection)> _chargeCompletionSource;
         private UniTaskCompletionSource<GameButtonType> _dodgeCompletionSource;
@@ -39,6 +40,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
             _currentCharge -= _fightConfiguration.ChargeDropPerTick;
             _currentCharge = Mathf.Max(0f, _currentCharge);
+            _chargingMeterView.ChargeValue = _currentCharge;
 
             if (!_gameState.CurrentFighter.InputHandler.IsChargeButtonPressed)
             {
@@ -48,6 +50,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             //TODO: Limit charge rate
             _currentCharge += _fightConfiguration.ChargePerTap;
             _currentCharge = MathF.Min(_fightConfiguration.MaxCharge, _currentCharge);
+            _chargingMeterView.ChargeValue = _currentCharge;
         }
 
         private void UpdateHitDirection()
