@@ -9,49 +9,48 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
 {
     public class FighterView : MonoBehaviour, IFighterView
     {
-        private static readonly int HeadVectorAnimatorKey = Animator.StringToHash("HeadVector");
-        private static readonly int AttackVectorAnimatorKey = Animator.StringToHash("AttackVector");
+        private static readonly int DodgeTriggerAnimatorKey = Animator.StringToHash("DodgeTrigger");
+        private static readonly int SlapTriggerAnimatorKey = Animator.StringToHash("SlapTrigger");
+        private static readonly int CritSlapTriggerAnimatorKey = Animator.StringToHash("CritSlapTrigger");
         private static readonly int DeathTriggerAnimatorKey = Animator.StringToHash("DeathTrigger");
+        private static readonly int ShowTriggerAnimatorKey = Animator.StringToHash("ShowTrigger");
+        private static readonly int HideTriggerAnimatorKey = Animator.StringToHash("HideTrigger");
+        
 
         [SerializeField] private Animator _animator;
+        [SerializeField] private float _showHideDuration = 1f;
         
-        public void Attack(MovementDirection direction)
+
+        public void AnimateDodge()
         {
-            switch (direction)
-            {
-                case MovementDirection.RightToLeft:
-                    _animator.SetInteger(AttackVectorAnimatorKey, -1);
-                    break;
-                case MovementDirection.LeftToRight:
-                    _animator.SetInteger(AttackVectorAnimatorKey, 1);
-                    break;
-                case MovementDirection.None:
-                default:
-                    _animator.SetInteger(AttackVectorAnimatorKey, 0);
-                    break;
-            }
+            _animator.SetTrigger(DodgeTriggerAnimatorKey);
         }
 
-        public void TurnHead(MovementDirection direction)
+        public void AnimateSlap()
         {
-            switch (direction)
-            {
-                case MovementDirection.RightToLeft:
-                    _animator.SetInteger(HeadVectorAnimatorKey, -1);
-                    break;
-                case MovementDirection.LeftToRight:
-                    _animator.SetInteger(HeadVectorAnimatorKey, 1);
-                    break;
-                case MovementDirection.None:
-                default:
-                    _animator.SetInteger(HeadVectorAnimatorKey, 0);
-                    break;
-            }
+            _animator.SetTrigger(SlapTriggerAnimatorKey);
         }
 
-        public void Die()
+        public void AnimateCritSlap()
+        {
+            _animator.SetTrigger(CritSlapTriggerAnimatorKey);
+        }
+
+        public void AnimateDeath()
         {
             _animator.SetTrigger(DeathTriggerAnimatorKey);
+        }
+
+        public async UniTask Hide()
+        {
+            _animator.SetTrigger(HideTriggerAnimatorKey);
+            await UniTask.Delay(TimeSpan.FromSeconds(_showHideDuration));
+        }
+
+        public async UniTask Show()
+        {
+            _animator.SetTrigger(ShowTriggerAnimatorKey);
+            await UniTask.Delay(TimeSpan.FromSeconds(_showHideDuration));
         }
     }
 }

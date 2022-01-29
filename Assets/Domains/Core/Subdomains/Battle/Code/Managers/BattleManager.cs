@@ -1,9 +1,13 @@
 using Domains.Core.Subdomains.Battle.Code.Interfaces;
+using UnityEngine;
+using Zenject;
 
 namespace Domains.Core.Subdomains.Battle.Code.Managers
 {
-    public class BattleManager
+    public class BattleManager : MonoBehaviour
     {
-        private IGameState _gameState;
+        [Inject] private IBattleHandler _battleHandler;
+        
+        
     }
 }

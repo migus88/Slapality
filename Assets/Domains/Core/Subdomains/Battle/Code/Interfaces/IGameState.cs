@@ -6,8 +6,10 @@ namespace Domains.Core.Subdomains.Battle.Code.Interfaces
     {
         IFighter[] Fighters { get; }
         IFighter CurrentFighter { get; }
+        IFighter CurrentEnemy { get; }
         bool IsGameOver { get; }
         IFighter Winner { get; }
-        
+
+        void NextRound();
     }
 }

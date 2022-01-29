@@ -5,8 +5,12 @@ namespace Domains.Core.Subdomains.Battle.Code.Interfaces
 {
     public interface IFighterView
     {
-        void Attack(MovementDirection direction);
-        void TurnHead(MovementDirection direction);
-        void Die();
+        void AnimateDodge();
+        void AnimateSlap();
+        void AnimateCritSlap();
+        void AnimateDeath();
+
+        UniTask Hide();
+        UniTask Show();
     }
 }
