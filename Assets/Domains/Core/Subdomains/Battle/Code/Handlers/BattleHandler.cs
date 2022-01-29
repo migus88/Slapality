@@ -73,7 +73,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
         #region IBattleManager
 
-        public async UniTask<(float charge, GameButtonType hitDirection)> ChargeHit()
+        public async UniTask<(float charge, GameButtonType buttonPressed)> ChargeHit()
         {
             if (_shouldHandleCharge)
             {
@@ -106,7 +106,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             return result;
         }
 
-        public async UniTask<GameButtonType> SelectDodgeDirection()
+        public async UniTask<GameButtonType> SelectDodgeButton()
         {
             if (_shouldHandleDodge)
             {
@@ -185,6 +185,12 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             }
 
             await UniTask.Delay(TimeSpan.FromSeconds(_delayBetweenAnimations));
+
+            if (result == RoundResult.GameEnded)
+            {
+                playerView.AnimateDeath();
+                await UniTask.Delay(TimeSpan.FromSeconds(_delayBetweenAnimations));
+            }
 
             return result;
         }

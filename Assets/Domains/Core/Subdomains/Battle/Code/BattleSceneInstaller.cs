@@ -13,8 +13,8 @@ namespace Domains.Core.Subdomains.Battle.Code
     {
         [Header("Configuration")]
         [SerializeField] private FightConfiguration _fightConfiguration;
-        [SerializeField] private InputConfiguration _workaholicInputConfiguration;
-        [SerializeField] private InputConfiguration _bumInputConfiguration;
+        [SerializeField] private ButtonsConfiguration _buttonsConfiguration;
+        [SerializeField] private InputConfiguration _inputConfiguration;
         
         [Header("Input")]
         [SerializeField] private InputHandler _workaholicInputHandler;
@@ -23,6 +23,8 @@ namespace Domains.Core.Subdomains.Battle.Code
         [Header("Views")]
         [SerializeField] private FighterView _workaholicView;
         [SerializeField] private FighterView _bumView;
+        [SerializeField] private CountdownView _countdownView;
+        
 
         [Header("Handlers")]
         [SerializeField] private BattleHandler _battleHandler;
@@ -32,7 +34,11 @@ namespace Domains.Core.Subdomains.Battle.Code
         public override void InstallBindings()
         {
             Container.Bind<FightConfiguration>().FromInstance(_fightConfiguration).AsSingle();
+            Container.Bind<ButtonsConfiguration>().FromInstance(_buttonsConfiguration).AsSingle();
+            Container.Bind<InputConfiguration>().FromInstance(_inputConfiguration).AsSingle();
 
+            Container.Bind<ICountdownView>().To<CountdownView>().FromInstance(_countdownView);
+            
             Container.Bind<IInputHandler>().To<InputHandler>()
                 .FromInstance(_workaholicInputHandler)
                 .WithConcreteId(PlayerType.Workaholic);
