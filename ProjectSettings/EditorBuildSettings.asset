@@ -12,12 +12,6 @@ EditorBuildSettings:
     path: Assets/Raspik/Scenes/Main.unity
     guid: 046a822bc356474469bd1e1595ac0d43
   - enabled: 1
-    path: Assets/Raspik/Scenes/Credits.unity
-    guid: a5e777900b69f21478034c8bceefc1a4
-  - enabled: 1
-    path: Assets/Raspik/Scenes/Options.unity
-    guid: 1c9abeb8c3d51d84fbfd444e32a92a5a
-  - enabled: 1
     path: Assets/Raspik/Scenes/Intro.unity
     guid: 69f62ee87ead6ad4bb51f47c9a1d577f
   m_configObjects: {}
