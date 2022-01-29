@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c952337756a34cc48d9a77999ad07357, type: 3}
   m_Name: FightConfiguration
   m_EditorClassIdentifier: 
-  MaxSecondsToCharge: 2
-  MaxSecondsToDodge: 0.5
+  MaxSecondsToCharge: 2.5
+  MaxSecondsToDodge: 0.45
   MaxHP: 20
-  BasicDamage: 2
+  BasicDamage: 5
   CritMultiplier: 2
   MaxCharge: 1
   ChargePerTap: 0.08

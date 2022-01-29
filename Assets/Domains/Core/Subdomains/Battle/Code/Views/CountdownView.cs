@@ -43,7 +43,9 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
                 }
                 await UniTask.NextFrame();
                 elapsed += Time.deltaTime;
-                _countdownText.text = $"{(seconds - elapsed):F}";
+                var time = seconds - elapsed;
+                time = Mathf.Max(0, time);
+                _countdownText.text = $"{(time):F}";
             }
         }
 
@@ -67,7 +69,9 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
                 }
                 await UniTask.NextFrame();
                 elapsed += Time.deltaTime;
-                _buttonCountdownText.text = $"{(durationSeconds - elapsed):F}";
+                var time = durationSeconds - elapsed;
+                time = Mathf.Max(0, time);
+                _buttonCountdownText.text = $"{(time):F}";
             }
         }
 
