@@ -18,15 +18,18 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
         
         [SerializeField] private TextMeshProUGUI _countdownText;
         [SerializeField] private Image _buttonImage;
-        [SerializeField] private TextMeshProUGUI _buttonText;
         [SerializeField] private TextMeshProUGUI _buttonCountdownText;
-        
 
-        [Inject] private ButtonsConfiguration _buttonsConfiguration;
-        
+        [Inject] private InputConfiguration _inputConfiguration;
+
+        private bool _isNeedToStopCounting = false;
+        private bool _isNeedToStopShowingButton = false;
         
         public async UniTask Countdown(float seconds)
         {
+            _isNeedToStopCounting = false;
+            _isNeedToStopShowingButton = true;
+            
             _timerParent.SetActive(true);
             _buttonParent.SetActive(false);
 
@@ -34,28 +37,46 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
 
             while (elapsed <= seconds)
             {
+                if (_isNeedToStopCounting)
+                {
+                    break;
+                }
                 await UniTask.NextFrame();
                 elapsed += Time.deltaTime;
                 _countdownText.text = $"{(seconds - elapsed):F}";
             }
         }
 
-        public async UniTask ShowButton(float durationSeconds, GameButtonType buttonType)
+        public async UniTask ShowButton(float durationSeconds, GameButtonType buttonType, PlayerType playerType)
         {
+            _isNeedToStopCounting = true;
+            _isNeedToStopShowingButton = false;
+            
             _timerParent.SetActive(false);
             _buttonParent.SetActive(true);
 
-            _buttonText.text = buttonType.ToString();
-            _buttonImage.sprite = _buttonsConfiguration.GetSprite(buttonType);
+            _buttonImage.sprite = _inputConfiguration.GetInput(playerType).GetSprite(buttonType);
 
             var elapsed = 0f;
 
             while (elapsed <= durationSeconds)
             {
+                if (_isNeedToStopShowingButton)
+                {
+                    break;
+                }
                 await UniTask.NextFrame();
                 elapsed += Time.deltaTime;
                 _buttonCountdownText.text = $"{(durationSeconds - elapsed):F}";
             }
+        }
+
+        public void HideAll()
+        {
+            _timerParent.SetActive(false);
+            _buttonParent.SetActive(false);
+            _isNeedToStopCounting = true;
+            _isNeedToStopShowingButton = true;
         }
     }
 }

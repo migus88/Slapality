@@ -14,13 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player1:
     X: 97
+    SpriteX: {fileID: 21300000, guid: 46c98e56a81864b37bb623f0127ad58c, type: 3}
     Y: 100
+    SpriteY: {fileID: 21300000, guid: 50cedf93c39814e42831b36de70c31d0, type: 3}
     A: 119
+    SpriteA: {fileID: 21300000, guid: 27a47fcb3637c4ef5b40d4d330bfda7d, type: 3}
     B: 115
+    SpriteB: {fileID: 21300000, guid: b0ee1df6b14d044a689d224c3f36ec8b, type: 3}
     Charge: 103
   Player2:
     X: 276
+    SpriteX: {fileID: 21300000, guid: 3a0dc7baa295e4f6faf5be7e48043c34, type: 3}
     Y: 275
+    SpriteY: {fileID: 21300000, guid: 6b5889cc3e7b14c298d6cdf37b1feff8, type: 3}
     A: 273
+    SpriteA: {fileID: 21300000, guid: 94f9097688fb34454ad40b70916b96d5, type: 3}
     B: 274
+    SpriteB: {fileID: 21300000, guid: f440e3ce003f44b70996a7051264bb14, type: 3}
     Charge: 109

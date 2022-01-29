@@ -16,6 +16,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
         [Inject] private IGameState _gameState;
         [Inject] private FightConfiguration _fightConfiguration;
+        [Inject] private IChargingMeterView _chargingMeterView;
 
         private UniTaskCompletionSource<(float charge, GameButtonType hitDirection)> _chargeCompletionSource;
         private UniTaskCompletionSource<GameButtonType> _dodgeCompletionSource;
@@ -28,6 +29,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
         {
             UpdateHitDirection();
             UpdateCharge();
+            UpdateDodge();
         }
 
         private void UpdateCharge()
@@ -39,6 +41,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
             _currentCharge -= _fightConfiguration.ChargeDropPerTick;
             _currentCharge = Mathf.Max(0f, _currentCharge);
+            _chargingMeterView.ChargeValue = _currentCharge;
 
             if (!_gameState.CurrentFighter.InputHandler.IsChargeButtonPressed)
             {
@@ -48,6 +51,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             //TODO: Limit charge rate
             _currentCharge += _fightConfiguration.ChargePerTap;
             _currentCharge = MathF.Min(_fightConfiguration.MaxCharge, _currentCharge);
+            _chargingMeterView.ChargeValue = _currentCharge;
         }
 
         private void UpdateHitDirection()
@@ -62,7 +66,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
         private void UpdateDodge()
         {
-            if (!_shouldHandleDodge || !_gameState.CurrentFighter.InputHandler.IsGameButtonPressed)
+            if (!_shouldHandleDodge || !_gameState.CurrentEnemy.InputHandler.IsGameButtonPressed)
             {
                 return;
             }
@@ -114,7 +118,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             }
 
             _dodgeCompletionSource = new UniTaskCompletionSource<GameButtonType>();
-            _gameState.CurrentFighter.InputHandler.ResetLastDirection();
+            _gameState.CurrentEnemy.InputHandler.ResetLastDirection();
             
             _shouldHandleDodge = true;
             var timeElapsed = 0f;

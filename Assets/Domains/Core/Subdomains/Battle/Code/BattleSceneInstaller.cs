@@ -13,7 +13,6 @@ namespace Domains.Core.Subdomains.Battle.Code
     {
         [Header("Configuration")]
         [SerializeField] private FightConfiguration _fightConfiguration;
-        [SerializeField] private ButtonsConfiguration _buttonsConfiguration;
         [SerializeField] private InputConfiguration _inputConfiguration;
         
         [Header("Input")]
@@ -24,7 +23,7 @@ namespace Domains.Core.Subdomains.Battle.Code
         [SerializeField] private FighterView _workaholicView;
         [SerializeField] private FighterView _bumView;
         [SerializeField] private CountdownView _countdownView;
-        
+        [SerializeField] private ChargingMeterView _chargingMeterView;
 
         [Header("Handlers")]
         [SerializeField] private BattleHandler _battleHandler;
@@ -33,8 +32,9 @@ namespace Domains.Core.Subdomains.Battle.Code
 
         public override void InstallBindings()
         {
+            Container.Bind<IChargingMeterView>().To<ChargingMeterView>().FromInstance(_chargingMeterView);
+            
             Container.Bind<FightConfiguration>().FromInstance(_fightConfiguration).AsSingle();
-            Container.Bind<ButtonsConfiguration>().FromInstance(_buttonsConfiguration).AsSingle();
             Container.Bind<InputConfiguration>().FromInstance(_inputConfiguration).AsSingle();
 
             Container.Bind<ICountdownView>().To<CountdownView>().FromInstance(_countdownView);
@@ -48,17 +48,21 @@ namespace Domains.Core.Subdomains.Battle.Code
                 .WithConcreteId(PlayerType.Bum);
 
             var workaholic = new Fighter(PlayerType.Workaholic, _fightConfiguration, _workaholicInputHandler, _workaholicView);
-            Container.Bind<IFighter>().To<Fighter>()
-                .FromInstance(workaholic)
-                .WithConcreteId(PlayerType.Workaholic);
+            Container.Bind<IFighter>()
+                .WithId(PlayerType.Workaholic)
+                .To<Fighter>()
+                .FromInstance(workaholic);
 
             var bum = new Fighter(PlayerType.Bum, _fightConfiguration, _bumInputHandler, _bumView);
-            Container.Bind<IFighter>().To<Fighter>().FromInstance(bum)
-                .WithConcreteId(PlayerType.Bum);
+            Container.Bind<IFighter>()
+                .WithId(PlayerType.Bum)
+                .To<Fighter>()
+                .FromInstance(bum);
 
             Container.Bind<IGameState>().To<GameState>().AsTransient();
 
             Container.Bind<IBattleHandler>().To<BattleHandler>().FromInstance(_battleHandler).AsTransient();
+            
         }
     }
 }
