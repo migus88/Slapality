@@ -29,6 +29,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
         {
             UpdateHitDirection();
             UpdateCharge();
+            UpdateDodge();
         }
 
         private void UpdateCharge()

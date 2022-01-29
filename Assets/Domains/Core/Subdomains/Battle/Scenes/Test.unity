@@ -2394,6 +2394,10 @@ PrefabInstance:
       value: HealthBar
       objectReference: {fileID: 0}
     - target: {fileID: 7105906339864028111, guid: c936491e8d82947e8848858f87b5f8fc, type: 3}
+      propertyPath: _playerType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7105906339864028111, guid: c936491e8d82947e8848858f87b5f8fc, type: 3}
       propertyPath: _maxHorizontalPosition
       value: -640
       objectReference: {fileID: 0}
