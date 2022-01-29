@@ -1951,7 +1951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fa6d127e69494f81b837c4f624d9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fightConfiguration: {fileID: 11400000, guid: ca042e940e97846c99b8c99d2e9b0ee5, type: 2}
+  _fightConfiguration: {fileID: 11400000, guid: 91a7f5cff4f2e41248dee941b253f77e, type: 2}
   _inputConfiguration: {fileID: 11400000, guid: cfeb7fb3308454fb980bc958b9f8f425, type: 2}
   _workaholicInputHandler: {fileID: 441631149}
   _bumInputHandler: {fileID: 1466940997}

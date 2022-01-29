@@ -19,4 +19,4 @@ MonoBehaviour:
   CritMultiplier: 2
   MaxCharge: 1
   ChargePerTap: 0.08
-  ChargeDropPerTick: 0.005
+  ChargeDropPerTick: 0.001
