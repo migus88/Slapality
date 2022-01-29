@@ -66,7 +66,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
         private void UpdateDodge()
         {
-            if (!_shouldHandleDodge || !_gameState.CurrentFighter.InputHandler.IsGameButtonPressed)
+            if (!_shouldHandleDodge || !_gameState.CurrentEnemy.InputHandler.IsGameButtonPressed)
             {
                 return;
             }
@@ -118,7 +118,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             }
 
             _dodgeCompletionSource = new UniTaskCompletionSource<GameButtonType>();
-            _gameState.CurrentFighter.InputHandler.ResetLastDirection();
+            _gameState.CurrentEnemy.InputHandler.ResetLastDirection();
             
             _shouldHandleDodge = true;
             var timeElapsed = 0f;
