@@ -9,5 +9,6 @@ namespace Domains.Core.Subdomains.Battle.Code.Interfaces
         
         UniTask Countdown(float seconds);
         UniTask ShowButton(float durationSeconds, GameButtonType buttonType, PlayerType playerType);
+        void HideAll();
     }
 }

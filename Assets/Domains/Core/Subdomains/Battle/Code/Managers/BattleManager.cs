@@ -65,6 +65,9 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             _countdownView.ShowButton(_fightConfiguration.MaxSecondsToDodge, chargeResult.buttonPressed,
                 _gameState.CurrentEnemy.PlayerType);
             var dodgeResult = await _battleHandler.SelectDodgeButton();
+            
+            _countdownView.HideAll();
+            
             var damageResult =
                 await _battleHandler.CalculateDamage(chargeResult.charge, chargeResult.buttonPressed, dodgeResult);
 
