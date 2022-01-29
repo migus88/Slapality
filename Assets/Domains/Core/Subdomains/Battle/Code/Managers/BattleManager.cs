@@ -38,11 +38,13 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             
             await UniTask.Delay(_delayInSeconds * 1000);
 
-            for (int i = 0; i < _delayInSeconds; i++)
+            for (int i = 0; i < _delayInSeconds + 1; i++)
             {
                 _globalCountdownText.text = (_delayInSeconds - i).ToString();
                 await UniTask.Delay(1000);
             }
+            
+            _globalCountdownParent.SetActive(false);
 
             await PlayRound();
         }

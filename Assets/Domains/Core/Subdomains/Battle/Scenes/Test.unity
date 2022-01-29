@@ -876,7 +876,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1072915226
 RectTransform:
   m_ObjectHideFlags: 0
@@ -918,7 +918,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4fe5f3779270b4170a83120ca0d1b7a3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3a0dc7baa295e4f6faf5be7e48043c34, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1642,7 +1642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2fa6d127e69494f81b837c4f624d9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fightConfiguration: {fileID: 11400000, guid: 91a7f5cff4f2e41248dee941b253f77e, type: 2}
+  _fightConfiguration: {fileID: 11400000, guid: ca042e940e97846c99b8c99d2e9b0ee5, type: 2}
   _inputConfiguration: {fileID: 11400000, guid: cfeb7fb3308454fb980bc958b9f8f425, type: 2}
   _workaholicInputHandler: {fileID: 441631149}
   _bumInputHandler: {fileID: 1466940997}
@@ -2002,7 +2002,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1957835064
 RectTransform:
   m_ObjectHideFlags: 0

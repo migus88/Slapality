@@ -55,7 +55,6 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
             _timerParent.SetActive(false);
             _buttonParent.SetActive(true);
 
-
             _buttonImage.sprite = _inputConfiguration.GetInput(playerType).GetSprite(buttonType);
 
             var elapsed = 0f;

@@ -24,12 +24,12 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
         private IFighter _fighter;
         private void Awake()
         {
-            //_fighter = _container.ResolveId<IFighter>(_playerType);
+            _fighter = _container.ResolveId<IFighter>(_playerType);
 
-            //if (_fighter == null)
-            //{
-                //throw new Exception("Fighter not found");
-            //}
+            if (_fighter == null)
+            {
+                throw new Exception("Fighter not found");
+            }
         }
 
         private void Update()
@@ -39,10 +39,10 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
 
         private void UpdateView()
         {
-            //var maxHp = _configuration.MaxHP;
-            //var currentHp = _fighter.CurrentHP;
+            var maxHp = _configuration.MaxHP;
+            var currentHp = _fighter.CurrentHP;
 
-            //_value = currentHp / maxHp;
+            _value = currentHp / maxHp;
             var newHorizontalPosition = Mathf.Lerp(_minHorizontalPosition, _maxHorizontalPosition, _value);
             _backgroundTransform.anchoredPosition =
                 new Vector2(newHorizontalPosition, _backgroundTransform.anchoredPosition.y);
