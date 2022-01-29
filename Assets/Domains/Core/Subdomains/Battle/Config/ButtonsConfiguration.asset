@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c952337756a34cc48d9a77999ad07357, type: 3}
-  m_Name: FightConfiguration
+  m_Script: {fileID: 11500000, guid: 0da0656fbc4844788a07ae1ead6b8088, type: 3}
+  m_Name: ButtonsConfiguration
   m_EditorClassIdentifier: 
-  MaxSecondsToCharge: 2
-  MaxSecondsToDodge: 0.5
-  MaxHP: 20
-  BasicDamage: 2
-  CritMultiplier: 2
-  MaxCharge: 1
-  ChargePerTap: 0.08
-  ChargeDropPerTick: 0.005
+  X: {fileID: 0}
+  Y: {fileID: 0}
+  A: {fileID: 0}
+  B: {fileID: 0}
