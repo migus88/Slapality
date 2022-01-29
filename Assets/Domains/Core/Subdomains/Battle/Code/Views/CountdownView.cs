@@ -70,5 +70,13 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
                 _buttonCountdownText.text = $"{(durationSeconds - elapsed):F}";
             }
         }
+
+        public void HideAll()
+        {
+            _timerParent.SetActive(false);
+            _buttonParent.SetActive(false);
+            _isNeedToStopCounting = true;
+            _isNeedToStopShowingButton = true;
+        }
     }
 }
