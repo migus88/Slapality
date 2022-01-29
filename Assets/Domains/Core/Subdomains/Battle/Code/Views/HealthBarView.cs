@@ -10,6 +10,13 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
     public class HealthBarView : MonoBehaviour
     {
         [SerializeField] private PlayerType _playerType;
+        [SerializeField] private float _minHorizontalPosition;
+        [SerializeField] private float _maxHorizontalPosition;
+        [SerializeField] private RectTransform _backgroundTransform;
+        
+        
+        [Range(0,1f)]
+        [SerializeField] private float _value;
         
         [Inject] private DiContainer _container;
         [Inject] private FightConfiguration _configuration;
@@ -17,12 +24,12 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
         private IFighter _fighter;
         private void Awake()
         {
-            _fighter = _container.ResolveId<IFighter>(_playerType);
+            //_fighter = _container.ResolveId<IFighter>(_playerType);
 
-            if (_fighter == null)
-            {
-                throw new Exception("Fighter not found");
-            }
+            //if (_fighter == null)
+            //{
+                //throw new Exception("Fighter not found");
+            //}
         }
 
         private void Update()
@@ -32,10 +39,13 @@ namespace Domains.Core.Subdomains.Battle.Code.Views
 
         private void UpdateView()
         {
-            var maxHp = _configuration.MaxHP;
-            var currentHp = _fighter.CurrentHP;
-            
-            //TODO: Update visuals.
+            //var maxHp = _configuration.MaxHP;
+            //var currentHp = _fighter.CurrentHP;
+
+            //_value = currentHp / maxHp;
+            var newHorizontalPosition = Mathf.Lerp(_minHorizontalPosition, _maxHorizontalPosition, _value);
+            _backgroundTransform.anchoredPosition =
+                new Vector2(newHorizontalPosition, _backgroundTransform.anchoredPosition.y);
         }
     }
 }
