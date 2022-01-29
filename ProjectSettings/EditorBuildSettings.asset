@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Raspik/Scenes/Intro.unity
     guid: 69f62ee87ead6ad4bb51f47c9a1d577f
+  - enabled: 1
+    path: Assets/Domains/Core/Subdomains/Battle/Scenes/BattleScene.unity
+    guid: ed7e7fa35bcf649c580bc85697776a36
   m_configObjects: {}
