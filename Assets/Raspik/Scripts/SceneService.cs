@@ -9,7 +9,7 @@ public class SceneService : MonoBehaviour
     public GameObject CreditsPanel;
     public void StartGame()
     {
-        SceneLoader("Intro");
+        SceneLoader("BattleScene");
     }
 
     public void OpenOptions()
