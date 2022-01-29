@@ -42,5 +42,7 @@ public class OptionsService : MonoBehaviour
                 default: break;
             }
         }
+
+        EventManager.OptionsChanged();
     }
 }
