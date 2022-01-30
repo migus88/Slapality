@@ -14,6 +14,16 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
         [SerializeField] private GameObject _globalCountdownParent;
         [SerializeField] private TextMeshProUGUI _globalCountdownText;
         [SerializeField] private int _delayInSeconds;
+        
+        //TODO: Move to configuration
+        [SerializeField] private AudioClip _countdownAudio;
+        [SerializeField] private AudioClip _battleMusic;
+        [SerializeField] private AudioClip _slapAudio;
+        [SerializeField] private AudioClip _critSlapAudio;
+        [SerializeField] private AudioClip _dodgeAudio;
+        [SerializeField] private float _slapDelay = 0.6f;
+        
+
 
 
         [Inject] private IBattleHandler _battleHandler;
@@ -23,6 +33,7 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
 
         private void Start()
         {
+            SoundManager.Instance?.StopMusic();
             Fight().Forget();
         }
 
@@ -38,11 +49,15 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             
             await UniTask.Delay(_delayInSeconds * 1000);
 
+            SoundManager.Instance?.PlaySfx(_countdownAudio); //TODO: Fix this 'null thingie' with proper injection
+            
             for (int i = 0; i < _delayInSeconds + 1; i++)
             {
                 _globalCountdownText.text = (_delayInSeconds - i).ToString();
                 await UniTask.Delay(1000);
             }
+
+            SoundManager.Instance?.PlayMusic(_battleMusic);
             
             _globalCountdownParent.SetActive(false);
 
@@ -71,6 +86,8 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             var damageResult =
                 await _battleHandler.CalculateDamage(chargeResult.charge, chargeResult.buttonPressed, dodgeResult);
 
+            PlayAttackSound(damageResult.result);
+            
             var roundResult = await _battleHandler.ApplyDamage(damageResult.damage, damageResult.result);
 
             if (roundResult == RoundResult.RoundEnded)
@@ -81,6 +98,22 @@ namespace Domains.Core.Subdomains.Battle.Code.Managers
             {
                 await _battleHandler.GameOver();
                 //TODO: Show winner dialog
+            }
+        }
+
+        private void PlayAttackSound(DamageResult damageResult)
+        {
+            switch (damageResult)
+            {
+                case DamageResult.Regular:
+                    SoundManager.Instance?.PlaySfxDelayed(_slapAudio, _slapDelay);
+                    break;
+                case DamageResult.Crit:
+                    SoundManager.Instance?.PlaySfxDelayed(_critSlapAudio, _slapDelay);
+                    break;
+                case DamageResult.Dodge:
+                    SoundManager.Instance?.PlaySfxDelayed(_dodgeAudio, _slapDelay);
+                    break;
             }
         }
     }

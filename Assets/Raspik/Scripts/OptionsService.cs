@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,44 +6,35 @@ using UnityEngine.UI;
 
 public class OptionsService : MonoBehaviour
 {
-    public void LoadOptions()
-    {
-        float sfxVol = PlayerPrefs.GetFloat("sfxVol", 1f);
-        float musicVol = PlayerPrefs.GetFloat("musicVol", 1f);
+    [SerializeField] private Slider _sfxVolumeSlider;
+    [SerializeField] private Slider _musicVolumeSlider;
 
-        Slider[] sliders = gameObject.GetComponentsInChildren<Slider>();
-        foreach (var slider in sliders)
-        {
-            switch (slider.name)
-            {
-                case "SFXSliderObj":
-                    slider.value = sfxVol;
-                    break;
-                case "MusSliderObj":
-                    slider.value = musicVol;
-                    break;
-                default: break;
-            }
-        }
+    private void Awake()
+    {
+        InitSliders();
+        
+        _sfxVolumeSlider.onValueChanged.AddListener(OnSfxSliderValueChanged);
+        _musicVolumeSlider.onValueChanged.AddListener(OnMusicSliderValueChanged);
     }
 
-    public void SaveOptions()
+    private void InitSliders()
     {
-        Slider[] sliders = gameObject.GetComponentsInChildren<Slider>();
-        foreach (var slider in sliders)
-        {
-            switch (slider.name)
-            {
-                case "SFXSliderObj":
-                    PlayerPrefs.SetFloat("sfxVol",slider.value);
-                    break;
-                case "MusSliderObj":
-                    PlayerPrefs.SetFloat("musicVol",slider.value);
-                    break;
-                default: break;
-            }
-        }
+        _sfxVolumeSlider.value = PlayerPrefs.GetFloat("sfxVol", 1f);
+        _musicVolumeSlider.value = PlayerPrefs.GetFloat("musicVol", 1f);
+        
+        SoundManager.Instance.ChangeSfxVolume(_sfxVolumeSlider.value);
+        SoundManager.Instance.ChangeMusicVolume(_musicVolumeSlider.value);
+    }
 
-        EventManager.OptionsChanged();
+    private void OnSfxSliderValueChanged(float value)
+    {
+        PlayerPrefs.SetFloat("sfxVol", _sfxVolumeSlider.value);
+        SoundManager.Instance.ChangeSfxVolume(_sfxVolumeSlider.value);
+    }
+
+    private void OnMusicSliderValueChanged(float value)
+    {
+        PlayerPrefs.SetFloat("musicVol", _musicVolumeSlider.value);
+        SoundManager.Instance.ChangeMusicVolume(_musicVolumeSlider.value);
     }
 }

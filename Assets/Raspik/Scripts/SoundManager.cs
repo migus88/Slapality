@@ -1,12 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource SFXSource;
-    public AudioSource MusicSource;
+    [SerializeField] private AudioSource _sfxSource;
+    [SerializeField] private AudioSource _musicSource;
+    [SerializeField] private AudioClip _mainMusic;
+    
 
+    //TODO: Use injection instead
     public static SoundManager Instance = null;
 
     private void Awake()
@@ -14,34 +20,55 @@ public class SoundManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            EventManager.onOptionsChange += ChangeVolume;
-            ChangeVolume();
         }
         else if (Instance != this)
         {
+            if (_mainMusic != null)
+            {
+                Instance.StopMusic();
+                Instance.PlayMusic(_mainMusic);
+            }
+
             Destroy(gameObject);
+            return;
         }
         
         DontDestroyOnLoad(gameObject);
     }
 
-    public void ChangeVolume()
+    public void ChangeSfxVolume(float value)
     {
-        SFXSource.volume = PlayerPrefs.GetFloat("sfxVol", 1f);
-        MusicSource.volume = PlayerPrefs.GetFloat("musicVol", 1f);
-        Debug.Log($"Volume Changed: SFX - {SFXSource.volume.ToString()}, Music - {MusicSource.volume.ToString()}");
+        value = Mathf.Clamp(value, 0, 1f);
+        _sfxSource.volume = value;
+    }
+
+    public void ChangeMusicVolume(float value)
+    {
+        value = Mathf.Clamp(value, 0, 1f);
+        _musicSource.volume = value;
+    }
+
+    public void StopMusic()
+    {
+        _musicSource.Stop();
     }
     
-    public void Play(AudioClip clip)
+    public void PlaySfx(AudioClip clip)
     {
-        SFXSource.clip = clip;
-        SFXSource.Play();
+        _sfxSource.clip = clip;
+        _sfxSource.Play();
     }
     
     public void PlayMusic(AudioClip clip)
     {
-        MusicSource.clip = clip;
-        MusicSource.Play();
+        _musicSource.clip = clip;
+        _musicSource.Play();
+    }
+
+    public async UniTaskVoid PlaySfxDelayed(AudioClip clip, float delay)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(delay));
+        PlaySfx(clip);
     }
     
 }
